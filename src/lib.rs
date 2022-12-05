@@ -12,6 +12,7 @@ use std::ffi::OsStr;
 use std::path::Path;
 use std::time::SystemTime;
 use libc::{c_int, ENOSYS};
+use serde::{Serialize, Deserialize};
 
 pub use fuse_abi::FUSE_ROOT_ID;
 pub use fuse_abi::consts;
@@ -30,7 +31,7 @@ mod request;
 mod session;
 
 /// File types
-#[derive(Clone, Copy, Debug, Eq, Hash, PartialEq)]
+#[derive(Clone, Copy, Debug, Eq, Hash, PartialEq, Serialize, Deserialize)]
 pub enum FileType {
     /// Named pipe (S_IFIFO)
     NamedPipe,
@@ -49,7 +50,7 @@ pub enum FileType {
 }
 
 /// File attributes
-#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Serialize, Deserialize)]
 pub struct FileAttr {
     /// Inode number
     pub ino: u64,
